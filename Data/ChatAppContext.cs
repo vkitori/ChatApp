@@ -16,5 +16,13 @@ namespace ChatApp.Data
 
         public DbSet<ChatApp.Models.User> User { get; set; } = default!;
         public DbSet<ChatApp.Models.Message> Message { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.User) 
+                .WithMany(u => u.Messages) 
+                .HasForeignKey(m => m.UserId); 
+        }
     }
 }
