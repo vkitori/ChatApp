@@ -1,10 +1,53 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Welcome to Chat Rooms";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="row mt-4 mb-4">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4">Welcome to The Chat App</h1>
+            <p>Select Your Chat Room</p>
+        </div>
+    </div>
+
+    <div class="row">
+        @foreach (var room in Model.ChatRooms)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm" style="background-color: @GetColorById(room.Id);">
+                    <div class="card-body d-flex flex-column">
+                        <div class="text-center mb-3">
+                            <i class="bi bi-chat-dots" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="card-title text-center">@room.Name</h5>
+                        <div class="mt-auto text-center">
+                            <a asp-page="/ChatRooms/Details" asp-route-id="@room.Id" class="btn btn-light">Join Room</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+@functions {
+    private string GetColorById(int id)
+    {
+        string[] colors = {
+            "#c8e6c9",  // Mint Green
+            "#ffe082",  // Soft Yellow
+            "#b3e5fc",  // Baby Blue
+            "#aed581",  // Light Green
+            "#ffccbc",  // Peach
+            "#f8bbd0",  // Light Pink
+            "#d1c4e9",  // Lavender
+            "#ffab91",  // Soft Coral
+            "#bcaaa4",  // Warm Beige
+            "#90caf9",  // Light Sky Blue
+        };
+
+        return colors[id % colors.Length];
+    }
+}
