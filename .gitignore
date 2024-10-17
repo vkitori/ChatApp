@@ -1,0 +1,16 @@
+﻿# Ignore Visual Studio temporary files
+.vs/
+*.user
+*.suo
+*.vscode/
+
+# Ignore build output folders
+bin/
+obj/
+
+# Ignore other temporary files
+*.log
+*.tmp
+
+# Ignore lock files and IDE settings
+*.lock
