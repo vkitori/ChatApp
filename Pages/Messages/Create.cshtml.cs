@@ -35,9 +35,6 @@ namespace ChatApp.Pages.Messages
             {
                 return Page();
             }*/
-
-            Message.Timestamp = DateTime.UtcNow;
-
             _context.Message.Add(Message);
             await _context.SaveChangesAsync();
 
