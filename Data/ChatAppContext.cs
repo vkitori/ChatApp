@@ -15,5 +15,6 @@ namespace ChatApp.Data
         }
 
         public DbSet<ChatApp.Models.User> User { get; set; } = default!;
+        public DbSet<ChatApp.Models.Message> Message { get; set; } = default!;
     }
 }
