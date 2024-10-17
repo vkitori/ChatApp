@@ -22,7 +22,13 @@ namespace ChatApp.Data
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.User) 
                 .WithMany(u => u.Messages) 
-                .HasForeignKey(m => m.UserId); 
+                .HasForeignKey(m => m.UserId);
+
+            modelBuilder.Entity<Message>()
+               .HasOne(m => m.ChatRoom)
+               .WithMany(cr => cr.Messages)
+               .HasForeignKey(m => m.ChatRoomId);
         }
+        public DbSet<ChatApp.Models.ChatRoom> ChatRoom { get; set; } = default!;
     }
 }
