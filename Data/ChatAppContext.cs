@@ -16,6 +16,7 @@ namespace ChatApp.Data
 
         public DbSet<ChatApp.Models.User> User { get; set; } = default!;
         public DbSet<ChatApp.Models.Message> Message { get; set; } = default!;
+        public DbSet<ChatApp.Models.ChatRoom> ChatRoom { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +30,6 @@ namespace ChatApp.Data
                .WithMany(cr => cr.Messages)
                .HasForeignKey(m => m.ChatRoomId);
         }
-        public DbSet<ChatApp.Models.ChatRoom> ChatRoom { get; set; } = default!;
+        
     }
 }
