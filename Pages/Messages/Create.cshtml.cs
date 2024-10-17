@@ -21,7 +21,9 @@ namespace ChatApp.Pages.Messages
 
         public IActionResult OnGet()
         {
-        ViewData["UserId"] = new SelectList(_context.User, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Id");
+
+            ViewData["ChatRoomId"] = new SelectList(_context.ChatRoom, "Id", "Id");
             return Page();
         }
 

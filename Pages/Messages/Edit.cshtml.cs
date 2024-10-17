@@ -30,13 +30,15 @@ namespace ChatApp.Pages.Messages
                 return NotFound();
             }
 
-            var message =  await _context.Message.FirstOrDefaultAsync(m => m.Id == id);
+            var message = await _context.Message.FirstOrDefaultAsync(m => m.Id == id);
             if (message == null)
             {
                 return NotFound();
             }
             Message = message;
-           ViewData["UserId"] = new SelectList(_context.User, "Id", "Id");
+
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Id");
+            ViewData["ChatRoomId"] = new SelectList(_context.ChatRoom, "Id", "Id");
             return Page();
         }
 
