@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ChatApp.Data;
 using ChatApp.Models;
+using ChatApp.Services;
 
 namespace ChatApp.Pages.Messages
 {
     public class ChatRoomModel : PageModel
     {
-        private readonly ChatApp.Data.ChatAppContext _context;
+        private readonly ChatAppContext _context;
+        private readonly ElasticsearchService _elasticsearchService;
 
-        public ChatRoomModel(ChatApp.Data.ChatAppContext context)
+        public ChatRoomModel(ChatAppContext context, ElasticsearchService elasticsearchService)
         {
             _context = context;
+            _elasticsearchService = elasticsearchService;
         }
 
         public IList<Message> Messages { get; set; } = default!;
@@ -57,11 +60,13 @@ namespace ChatApp.Pages.Messages
                 Content = messageContent,
                 Timestamp = DateTime.UtcNow,
                 ChatRoomId = roomId,
-                UserId = 1
+                UserId = 1//TO DO add auth 
     };
 
             _context.Message.Add(message);
             await _context.SaveChangesAsync();
+
+            await _elasticsearchService.IndexMessageAsync(message);
 
             return RedirectToPage(new { roomId });
         }
